@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <style>
+      /* http://meyerweb.com/eric/tools/css/reset/  v2.0 | 20110126 License: none (public domain) */
+      html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}/*HTML5display-roleresetforolderbrowsers*/article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}body{line-height:1;}ol,ul{list-style:none;}blockquote,q{quotes:none;}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}table{border-collapse:collapse;border-spacing:0;}
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js"></script>
+    <script>
+     $(function ()
+       {
+           var _kana = 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわ', kana = '';
+
+           while (_kana)
+           {
+               var i = Math.floor(Math.random() * _kana.length);
+               kana += _kana.charAt(i);
+               _kana = _kana.substr(0, i) + _kana.substr(i + 1);
+           }
+           kana += ' ';
+
+           $('#c')
+               .prop('width', $(window).width())
+               .prop('height', $(window).height());
+           var canvas = new fabric.Canvas('c');
+
+           for (var i = 0; i < kana.length; i++)
+           {
+               var x, y;
+               if (i <= 10) { x = i * 110; y = 0; }
+               else if (i <= 16) { x = 1100; y = 100 * (i - 10); }
+               else if (i <= 26) { x = (26 - i) * 110; y = 600; }
+               else if (i <= 30) { x = 0; y = 100 * (32 - i); }
+               else if (i <= 38) { x = (i - 30) * 110; y = 200; }
+               else if (i <= 40) { x = 880; y = 100 * (i - 36); }
+               else { x = (48 - i) * 110; y = 400; }
+               x += Math.random() * 10;
+               y += Math.random() * 10;
+               var rect = new fabric.Circle({
+                   left: x, top: y,
+                   stroke: '#000', fill: '#fff',
+                   radius: 60
+               });
+               var text = new fabric.Text(kana.charAt(i), {
+                   left: x + 12, top: y - 5,
+                   fontSize: 100, fontFamily: '小塚ゴシック Pr6N M', textAlign: 'center',
+                   fill: 'rgba(0, 0, 0, 0.5)'
+               });
+               var group = new fabric.Group([rect, text], {'selectable': false});
+               canvas.add(group);
+           }
+
+           var players = parseInt(location.hash.substr(1));
+           while (isNaN(players) || players < 0) players = parseInt(prompt('How many players?', 5));
+           for (var i = 0; i < players; i++)
+           {
+               var player = new fabric.Circle({
+                   left: 100 + 40 * Math.cos(i / players * 2 * Math.PI), top: 100 + 40 * Math.sin(i / players * 2 * Math.PI),
+                   fill: '#' + Math.floor(Math.random() * 0xffffff).toString(16),
+                   radius: 20, hasControls: false
+               });
+               canvas.add(player);
+           }
+       });
+    </script>
+  </head>
+  <body><canvas id="c"></canvas></body>
+</html>
