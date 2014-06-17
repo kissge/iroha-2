@@ -54,12 +54,18 @@
            }
 
            var players = parseInt(location.hash.substr(1));
+		   var colours =  ["#000000", "#0000ff", "#00ff00", "#ff0000", "#008000", "#ffff00", "#9400d3", "#00bfff", "#ffa500", "#ff00ff"]
            while (isNaN(players) || players < 0) players = parseInt(prompt('How many players?', 5));
+		   
            for (var i = 0; i < players; i++)
            {
+			   if (i < colours.length) // using a colour stored in 'colours'
+				   var colour = colours[i];				   
+			   else // randomly creating a colour!
+				   var colour = '#' + Math.floor(Math.random() * 0xffffff).toString(16);
                var player = new fabric.Circle({
                    left: 100 + 40 * Math.cos(i / players * 2 * Math.PI), top: 100 + 40 * Math.sin(i / players * 2 * Math.PI),
-                   fill: '#' + Math.floor(Math.random() * 0xffffff).toString(16),
+				   fill: colour,
                    radius: 20, hasControls: false
                });
                canvas.add(player);
