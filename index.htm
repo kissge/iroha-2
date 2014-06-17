@@ -54,33 +54,8 @@
            }
 
            var players = parseInt(location.hash.substr(1));
-		   var colours = [];
+		   var colours =  ["#000000", "#0000ff", "#00ff00", "#ff0000", "#008000", "#ffff00", "#9400d3", "#00bfff", "#ffa500", "#ff00ff"]
            while (isNaN(players) || players < 0) players = parseInt(prompt('How many players?', 5));
-
-		   switch (players)  // add colours to 'colours' according to the number of players
-		   {
-		   default: // if there are more than 10 players, just add the 10 colours
-		   case 10:
-			   colours.push('#ff00ff'); // magenta
-		   case 9:
-			   colours.push('#ffa500'); // orange
-		   case 8:
-			   colours.push('#00bfff'); // deepskyblue
-		   case 7:
-			   colours.push('#9400d3'); // darkviolet
-		   case 6:
-			   colours.push('#ffff00'); // yellow
-		   case 5:
-			   colours.push('#008000'); // green
-		   case 4:
-			   colours.push('#ff0000');
-		   case 3:
-			   colours.push('#00ff00');
-		   case 2:
-			   colours.push('#0000ff');
-		   case 1:
-			   colours.push('#000000');
-		   }
 		   
            for (var i = 0; i < players; i++)
            {
