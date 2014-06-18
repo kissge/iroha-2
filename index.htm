@@ -12,6 +12,8 @@
     <script>
      $(function ()
        {
+           fabric.Object.prototype.originX = true;
+           fabric.Object.prototype.originY = true;
            var _kana = 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわ', kana = '';
 
            while (_kana)
@@ -30,13 +32,13 @@
            for (var i = 0; i < kana.length; i++)
            {
                var x, y;
-               if (i <= 10) { x = i * 110; y = 0; }
-               else if (i <= 16) { x = 1100; y = 100 * (i - 10); }
-               else if (i <= 26) { x = (26 - i) * 110; y = 600; }
-               else if (i <= 30) { x = 0; y = 100 * (32 - i); }
-               else if (i <= 38) { x = (i - 30) * 110; y = 200; }
-               else if (i <= 40) { x = 880; y = 100 * (i - 36); }
-               else { x = (48 - i) * 110; y = 400; }
+               if (i <= 10) { x = i * 110 + 60; y = 60; }
+               else if (i <= 16) { x = 1160; y = 100 * (i - 10) + 60; }
+               else if (i <= 26) { x = (26 - i) * 110 + 60; y = 600 + 60; }
+               else if (i <= 30) { x = 60; y = 100 * (32 - i) + 60; }
+               else if (i <= 38) { x = (i - 30) * 110 + 60; y = 260; }
+               else if (i <= 40) { x = 940; y = 100 * (i - 36) + 60; }
+               else { x = (48 - i) * 110 + 60; y = 460; }
                x += Math.random() * 10;
                y += Math.random() * 10;
                var rect = new fabric.Circle({
@@ -54,17 +56,17 @@
            }
 
            var players = parseInt(location.hash.substr(1));
-		   var colours =  ["#000000", "#0000ff", "#00ff00", "#ff0000", "#008000", "#ffff00", "#9400d3", "#00bfff", "#ffa500", "#ff00ff"]
+           var colours =  ["#000000", "#0000ff", "#00ff00", "#ff0000", "#008000", "#ffff00", "#9400d3", "#00bfff", "#ffa500", "#ff00ff"];
            while (isNaN(players) || players < 0) players = parseInt(prompt('How many players?', 5));
 		   
            for (var i = 0; i < players; i++)
            {
-			   if (i < colours.length) // using a colour stored in 'colours'
-				   var colour = colours[i];				   
-			   else // randomly creating a colour!
-				   var colour = '#' + Math.floor(Math.random() * 0xffffff).toString(16);
+               if (i < colours.length) // using a colour stored in 'colours'
+                   var colour = colours[i];				   
+               else // randomly creating a colour!
+                   var colour = '#' + Math.floor(Math.random() * 0xffffff).toString(16);
                var player = new fabric.Circle({
-                   left: 100 + 40 * Math.cos(i / players * 2 * Math.PI), top: 100 + 40 * Math.sin(i / players * 2 * Math.PI),
+                   left: 60 + 40 * Math.cos(i / players * 2 * Math.PI), top: 60 + 40 * Math.sin(i / players * 2 * Math.PI),
 				   fill: colour,
                    radius: 20, hasControls: false
                });
