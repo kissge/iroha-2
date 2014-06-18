@@ -62,7 +62,7 @@
 			   if (i < colours.length) // using a colour stored in 'colours'
 				   var colour = colours[i];				   
 			   else // randomly creating a colour!
-				   var colour = '#' + Math.floor(Math.random() * 0xffffff).toString(16);
+                                   var colour = '#' + ('000000' + Math.floor(Math.random() * 0xffffff).toString(16)).slice(-6);
                var player = new fabric.Circle({
                    left: 100 + 40 * Math.cos(i / players * 2 * Math.PI), top: 100 + 40 * Math.sin(i / players * 2 * Math.PI),
 				   fill: colour,
