@@ -67,7 +67,7 @@
                    var colour = '#' + ('000000' + Math.floor(Math.random() * 0xffffff).toString(16)).slice(-6);
                var player = new fabric.Circle({
                    left: 60 + 40 * Math.cos(i / players * 2 * Math.PI), top: 60 + 40 * Math.sin(i / players * 2 * Math.PI),
-				   fill: colour,
+                   fill: fabric.Color.fromHex(colour.slice(1)).setAlpha(0.80).toRgba(),
                    radius: 20, hasControls: false
                });
                canvas.add(player);
